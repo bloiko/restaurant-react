@@ -3,6 +3,7 @@ import {Login} from "./pages/login/login";
 import {Registration} from "./pages/registration/registration";
 import {Main} from "./pages/main/main";
 import {Cart} from "./pages/cart/cart";
+import {Admin} from "./pages/admin/admin";
 
 function App() {
    return (
@@ -14,6 +15,7 @@ function App() {
            />
            <Route path="register" element={<Registration />} />
            <Route path="cart" element={<Cart />} />
+           <Route path="admin" element={<Admin />} />
        </Routes>
   );
 }

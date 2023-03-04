@@ -5,6 +5,7 @@ import {MDBDropdown, MDBDropdownItem, MDBDropdownMenu, MDBDropdownToggle, MDBLis
 import {FoodItem} from "../../components/FoodItem";
 import {CartContext} from "../../context/cartContext";
 
+
 export const Main = () => {
     const [categories, setCategories] = useState([])
     const [foodItems, setFoodItems] = useState([])
@@ -13,18 +14,18 @@ export const Main = () => {
     const { addToCart } = useContext(CartContext)
 
     useEffect(() => {
-        http.post('/menu1', {"filterBy": "Desserts",
-            "pageNumber": 1,
-            "pageSize": 10,
-            "sortDirection": "ASC"}).then(({data}) => {
+        http.post('/menu1', { filterBy: chosenCategory.name,
+            pageNumber: 1,
+            pageSize: 10,
+            sortDirection: "ASC"}).then(({data}) => {
                 setCategories(data.categories)
                 setFoodItems(data.foodItems)
             })
-    },[])
+    },[chosenCategory.name])
 
     return (
         <Layout>
-            <MDBDropdown>
+            <MDBDropdown onValueChange={console.log}>
                 <MDBDropdownToggle tag='a' className='nav-link' role='button'>
                     {chosenCategory.name}
                 </MDBDropdownToggle>
