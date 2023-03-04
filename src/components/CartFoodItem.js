@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
 import {MDBBtn, MDBCol, MDBRow} from "mdb-react-ui-kit";
 
-export const FoodItem = ({foodItem, onRemove, onAdd}) => {
-    const {image, price, name} = foodItem
+export const CartFoodItem = ({foodItem, onRemove, onAdd}) => {
+    const {image, price, name, quantity} = foodItem
 
     return (
         <MDBRow>
@@ -11,7 +11,8 @@ export const FoodItem = ({foodItem, onRemove, onAdd}) => {
             </MDBCol>
             <MDBCol lg='8' md='12' className='mb-4'>
                 <div className='fw-bold'>{name}</div>
-                <div className='text-muted'>{price}$</div>
+                <div className='text-muted'>price: {price}$</div>
+                <div className='text-muted'>quantity: {quantity}</div>
             </MDBCol>
             <MDBCol lg='2' md='12' className='mb-4'>
                 {onAdd ? <MDBBtn outline color='success' onClick={onAdd}>

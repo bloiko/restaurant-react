@@ -8,7 +8,7 @@ axios.interceptors.request.use(
         const token = authService.getToken()
         if (token) {
             if (config.headers) {
-               /* config.headers["Authorization"] = "Bearer " + token*/
+              /* config.headers["Authorization"] = "Bearer " + token*/
             }
         }
         return config
@@ -24,7 +24,7 @@ axios.interceptors.response.use(
                 const { status, data } = error.response
                 if (status === 401 && data?.message === "Unauthenticated.") {
                     authService.removeToken()
-                    window.location.replace("/app/login")
+                    window.location.replace("/login")
                 }
                 return Promise.reject(error.response.data)
             }

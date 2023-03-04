@@ -9,7 +9,7 @@ import {CartContext} from "../../context/cartContext";
 export const Main = () => {
     const [categories, setCategories] = useState([])
     const [foodItems, setFoodItems] = useState([])
-    const [chosenCategory, setChosenCategory] = useState({id:0, name: "Categories" })
+    const [chosenCategory, setChosenCategory] = useState({id:0, name: "Desserts" })
 
     const { addToCart } = useContext(CartContext)
 
@@ -23,9 +23,10 @@ export const Main = () => {
             })
     },[chosenCategory.name])
 
+
     return (
         <Layout>
-            <MDBDropdown onValueChange={console.log}>
+            <MDBDropdown>
                 <MDBDropdownToggle tag='a' className='nav-link' role='button'>
                     {chosenCategory.name}
                 </MDBDropdownToggle>
