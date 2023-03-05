@@ -19,11 +19,14 @@ export const Login = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate()
+
+    useAuth("/")
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        http.post("/security/signin", {username, password}).then(({data: token}) => {
-            if (token) {
-                authService.setToken(token)
+        http.post("/security/signin", {username, password}).then(({data}) => {
+            if (data.authToken) {
+                authService.setToken(data.authToken)
                 navigate("/")
             }
         })
@@ -40,7 +43,7 @@ export const Login = () => {
 
                             <div className="d-flex flex-row align-items-center mb-4 ">
                                 <MDBIcon fas icon="user me-3" size='lg'/>
-                                <MDBInput label='Your Last Name' id='form12' type='text' className='w-100' value={username} onChange={(e) => setUsername(e.target.value)} autoComplete="off"/>
+                                <MDBInput label='User Name' id='form12' type='text' className='w-100' value={username} onChange={(e) => setUsername(e.target.value)} autoComplete="off"/>
                             </div>
 
                             <div className="d-flex flex-row align-items-center mb-4">

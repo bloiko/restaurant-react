@@ -22,7 +22,9 @@ export function Registration() {
     const [password, setPassword] = useState("")
     const [username, setUsername] = useState("")
     const navigate = useNavigate()
-    
+
+    useAuth("/")
+
     const handleSubmit = (e) => {
         e.preventDefault()
         http.post("/security/signup", { email, password, username, firstName, lastName})

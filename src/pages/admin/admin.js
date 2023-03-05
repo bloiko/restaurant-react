@@ -1,9 +1,11 @@
-import React, { useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { MDBBtn } from 'mdb-react-ui-kit';
 import {Layout} from "../../components/Layout";
 import {Buffer} from 'buffer';
 
 import axios from "axios"
+import {UserContext} from "../../context/userContext";
+import {useNavigate} from "react-router-dom";
 
 const url = "http://localhost:8083/report/orders/month"
 
@@ -13,15 +15,22 @@ const toBase64 = (response) =>
     )}`
 
 export const Admin = () => {
+    const {user} = useContext(UserContext)
+
     const [file, setFile] = useState("")
+
+    const navigate = useNavigate()
 
     const handleGetReport1 = async () => {
         axios.get(url, { responseType: 'arraybuffer' })
             .then(response => {
                 setFile(toBase64(response))
-                console.log(toBase64(response))
             });
     }
+
+   useEffect(() => {
+       if(user && user.role !== "ADMIN") navigate("/")
+    }, [user])
 
     return (
         <Layout>

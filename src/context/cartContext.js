@@ -15,8 +15,6 @@ export const CartContextProvider = ({children}) => {
                 return  [...prevState, {...cartItem, quantity: 1}]
             }
 
-
-
            return  prevState.map((item) => {
                 if(item.id === cartItem.id) {
                    return  {...item, quantity: item.quantity + 1}

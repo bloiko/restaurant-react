@@ -4,9 +4,14 @@ import {http} from "../../services/apiService";
 import {MDBDropdown, MDBDropdownItem, MDBDropdownMenu, MDBDropdownToggle, MDBListGroup} from "mdb-react-ui-kit";
 import {FoodItem} from "../../components/FoodItem";
 import {CartContext} from "../../context/cartContext";
+import {NotificationContext} from "../../context/notifiactionContext";
+import {UserContext} from "../../context/userContext";
 
 
 export const Main = () => {
+    const {showNotification} = useContext(NotificationContext)
+    const {user} = useContext(UserContext)
+    console.log(user)
     const [categories, setCategories] = useState([])
     const [foodItems, setFoodItems] = useState([])
     const [chosenCategory, setChosenCategory] = useState({id:0, name: "Desserts" })
@@ -21,6 +26,7 @@ export const Main = () => {
                 setCategories(data.categories)
                 setFoodItems(data.foodItems)
             })
+        showNotification(`${chosenCategory.name} have been selected`)
     },[chosenCategory.name])
 
 
