@@ -8,7 +8,6 @@ import {
     MDBNavbarNav,
     MDBNavbarItem,
     MDBNavbarLink,
-    MDBBtn,
     MDBCollapse,
 } from 'mdb-react-ui-kit';
 import {Link, useNavigate} from "react-router-dom";
@@ -56,6 +55,10 @@ export function Header() {
                         {user && user.role === "ADMIN" ? <MDBNavbarItem>
                             <MDBNavbarLink onClick={() => navigate('/admin')}>Admin</MDBNavbarLink>
                         </MDBNavbarItem> : null }
+                        
+                       <MDBNavbarItem>
+                            <MDBNavbarLink onClick={() => navigate('/my-orders')}>My Orders</MDBNavbarLink>
+                        </MDBNavbarItem>
                     </MDBNavbarNav>
 
                      <MDBNavbarNav className='mr-auto mb-2 mb-lg-0 justify-content-end'>

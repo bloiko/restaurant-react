@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {MDBBtn, MDBCol, MDBRow} from "mdb-react-ui-kit";
 
 export const FoodItem = ({foodItem, onRemove, onAdd}) => {

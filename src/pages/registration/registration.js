@@ -13,7 +13,6 @@ import {
     from 'mdb-react-ui-kit';
 import {http} from "../../services/apiService";
 import {useNavigate} from "react-router-dom";
-import {useAuth} from "../../hooks/useAuth";
 
 export function Registration() {
     const [email, setEmail] = useState("")
@@ -22,8 +21,6 @@ export function Registration() {
     const [password, setPassword] = useState("")
     const [username, setUsername] = useState("")
     const navigate = useNavigate()
-
-    useAuth("/")
 
     const handleSubmit = (e) => {
         e.preventDefault()

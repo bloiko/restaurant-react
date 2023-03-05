@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {http} from "../services/apiService";
 
-const getCurrentUser = () => http.get("/user/1")
+const getCurrentUser = () => http.get("/user/profile")
 
 export const UserContext = React.createContext({
     user: null,
