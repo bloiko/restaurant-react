@@ -1,7 +1,14 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Layout} from "../../components/Layout";
 import {http} from "../../services/apiService";
-import {MDBDropdown, MDBDropdownItem, MDBDropdownMenu, MDBDropdownToggle, MDBListGroup} from "mdb-react-ui-kit";
+import {
+    MDBDropdown,
+    MDBDropdownItem,
+    MDBDropdownMenu,
+    MDBDropdownToggle,
+    MDBListGroup,
+    MDBPagination, MDBPaginationItem, MDBPaginationLink
+} from "mdb-react-ui-kit";
 import {FoodItem} from "../../components/FoodItem";
 import {CartContext} from "../../context/cartContext";
 import {NotificationContext} from "../../context/notifiactionContext";
@@ -11,24 +18,48 @@ import {UserContext} from "../../context/userContext";
 export const Main = () => {
     const {showNotification} = useContext(NotificationContext)
     const {user} = useContext(UserContext)
-    console.log(user)
+    const {addToCart} = useContext(CartContext)
+
     const [categories, setCategories] = useState([])
     const [foodItems, setFoodItems] = useState([])
-    const [chosenCategory, setChosenCategory] = useState({id:0, name: "Desserts" })
+    const [chosenCategory, setChosenCategory] = useState({id: 0, name: "All categories"})
 
-    const { addToCart } = useContext(CartContext)
+    const [pageNumber, setPageNumber] = useState(1)
+    const [numOfPages, setNumOfPages] = useState([])
 
     useEffect(() => {
-        http.post('/menu1', { filterBy: chosenCategory.name,
+        http.post('/menu1', {
+            filterBy: chosenCategory.name,
             pageNumber: 1,
-            pageSize: 10,
-            sortDirection: "ASC"}).then(({data}) => {
-                setCategories(data.categories)
-                setFoodItems(data.foodItems)
-            })
-        showNotification(`${chosenCategory.name} have been selected`)
-    },[chosenCategory.name])
+            pageSize: 3,
+            sortDirection: "ASC"
+        }).then(({data}) => {
+            setCategories(data.categories)
+            setFoodItems(data.foodItems)
+            setNumOfPages(data.numOfPages)
+        })
+        // showNotification(`${chosenCategory.name} have been selected`)
+    }, [chosenCategory.name])
 
+    useEffect(() => {
+        http.post('/menu1', {
+            filterBy: chosenCategory.name,
+            pageNumber: pageNumber,
+            pageSize: 3,
+            sortDirection: "ASC"
+        }).then(({data}) => {
+            setCategories(data.categories)
+            setFoodItems(data.foodItems)
+            setNumOfPages(data.numOfPages)
+        })
+        // showNotification(`${chosenCategory.name} have been selected`)
+    }, [pageNumber])
+
+    const paginationItems = Array.from({length: numOfPages}, (_, i) => i + 1).map(i => {
+        return <MDBPaginationItem>
+            <MDBPaginationLink onClick={() => setPageNumber(i)}>{i}</MDBPaginationLink>
+        </MDBPaginationItem>
+    })
 
     return (
         <Layout>
@@ -37,15 +68,23 @@ export const Main = () => {
                     {chosenCategory.name}
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>
+                    <MDBDropdownItem onClick={() => setChosenCategory({id: 0, name: "All categories"})}>
+                        All categories
+                    </MDBDropdownItem>
                     {categories.map((category) =>
                         <MDBDropdownItem onClick={() => setChosenCategory(category)}>
                             {category.name}
                         </MDBDropdownItem>)}
                 </MDBDropdownMenu>
             </MDBDropdown>
-            <MDBListGroup style={{ minWidth: '22rem' }} light>
-            {foodItems.map((item) => <FoodItem foodItem={item} onAdd={() => addToCart(item)} />)}
+            <MDBListGroup style={{minWidth: '22rem'}} light>
+                {foodItems.map((item) => <FoodItem foodItem={item} onAdd={() => addToCart(item)}/>)}
             </MDBListGroup>
+            <nav style={{display:"flex", justifyContent:"center"}} aria-label='...'>
+                <MDBPagination size='lg' className='mb-0'>
+                    {paginationItems}
+                </MDBPagination>
+            </nav>
         </Layout>
     );
 };

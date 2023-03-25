@@ -8,8 +8,15 @@
     padding: 16px;
     text-align: center;
     border-radius: 3px;
-    background-color: lightcoral;
     animation: slide 0.5s;
+}
+
+.error {
+    background-color: lightcoral;
+}
+
+.success {
+    background-color: lightgreen;
 }
 
 @keyframes slide {

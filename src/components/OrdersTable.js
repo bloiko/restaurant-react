@@ -78,7 +78,7 @@ export const OrdersTable = () => {
                         </td>
                         <td>
                             <MDBBadge color='primary'>
-                                {moment( order.orderDate).format("DD/mm/yyy")}
+                                {moment( order.orderDate).format("DD-MM-YYYY  hh:mm:ss")}
                             </MDBBadge>
                         </td>
                     </tr>)

@@ -2,8 +2,10 @@ import React, {useState} from "react";
 
 export const CartContext = React.createContext({
     cartItems: [],
+    totalNumberOfItems: [],
     addToCart: (value) => {},
     removeFromCart: (id) => {},
+    removeAllFromCart: () => {}
 })
 
 export const CartContextProvider = ({children}) => {
@@ -23,7 +25,16 @@ export const CartContextProvider = ({children}) => {
             })
 
         }),
-        removeFromCart: (cartItem) => setCartItems((prevState) => prevState.filter((item) => item.id !== cartItem.id)),
+        removeFromCart: (cartItem) => setCartItems((prevState) => {
+            return prevState.map((item) => {
+                if(item.id === cartItem.id) {
+                    console.log( "Remove one quantity" + item)
+                    return  {...item, quantity: item.quantity - 1}
+                }
+                return item
+            }).filter((item) => item.quantity > 0)
+        }),
+        removeAllFromCart: () => setCartItems([]),
         cartItems
     }
 

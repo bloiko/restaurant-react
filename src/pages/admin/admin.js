@@ -34,8 +34,11 @@ export const Admin = () => {
 
     return (
         <Layout>
-            <MDBBtn onClick={handleGetReport1}>Button</MDBBtn>
+            <MDBBtn onClick={handleGetReport1}>Month order report</MDBBtn>
             {file}
+            <MDBBtn onClick={() => navigate("/admin/categories")}>Categories</MDBBtn>
+            <MDBBtn onClick={() => navigate("/admin/users")}>Users</MDBBtn>
+            <MDBBtn onClick={() => navigate("/admin/food-items")}>Food items</MDBBtn>
         </Layout>
     );
 };

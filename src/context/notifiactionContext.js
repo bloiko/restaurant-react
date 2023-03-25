@@ -2,17 +2,28 @@ import React, {useState} from "react";
 
 export const NotificationContext = React.createContext({
     notification: "",
-    showNotification: (message) => {},
+    isError: true,
+    showNotification: (message, isError) => {},
 })
 
 export const NotificationContextProvider = ({children}) => {
     const [notification, setShowNotification] = useState("")
+    const [isError, setIsError] = useState(true)
 
     const value = {
         notification,
-        showNotification: (message) => {
+        isError,
+        showNotification: (message, isError) => {
             setShowNotification(message)
-            setTimeout(() => setShowNotification(""), 3000)
+
+            if(isError!== undefined){
+                setIsError(isError)
+            }
+
+            setTimeout(() => {
+                setShowNotification("")
+                setIsError(true)
+            }, 3000)
         }
     }
 

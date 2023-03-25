@@ -22,7 +22,7 @@ axios.interceptors.response.use(
     (error) => {
             if (error.response) {
                 const { status, data } = error.response
-                if (status === 401 && data?.message === "Unauthenticated.") {
+                if (status === 403 ) {
                     authService.removeToken()
                     window.location.replace("/login")
                 }
