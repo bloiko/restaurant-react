@@ -35,6 +35,7 @@ export const OrdersTable = () => {
                     <th scope='col'>Order №</th>
                     <th scope='col'>Сomponents</th>
                     <th scope='col'>Total Price</th>
+                    <th scope='col'>Discount</th>
                     <th scope='col'>Status</th>
                     <th scope='col'>Date</th>
                 </tr>
@@ -68,6 +69,12 @@ export const OrdersTable = () => {
                         <td>
                             <MDBBadge color='primary'>
                                 {order.orderPrice}$
+                            </MDBBadge>
+                        </td>
+
+                        <td>
+                            <MDBBadge color='primary'>
+                                {order.promoCodeDiscount}%
                             </MDBBadge>
                         </td>
 
