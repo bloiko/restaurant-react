@@ -39,6 +39,7 @@ export const Admin = () => {
             <MDBBtn onClick={() => navigate("/admin/categories")}>Categories</MDBBtn>
             <MDBBtn onClick={() => navigate("/admin/users")}>Users</MDBBtn>
             <MDBBtn onClick={() => navigate("/admin/food-items")}>Food items</MDBBtn>
+            <MDBBtn onClick={() => navigate("/admin/promocodes")}>Promo codes</MDBBtn>
         </Layout>
     );
 };

@@ -26,7 +26,7 @@ export const Cart = () => {
     const checkPromoCode = async () => {
         await http.get("/promocode/" + promoCode).then((res) => {
                 setDiscount(res.data.discount)
-                const existsPromoCode = res.data.exists
+                const existsPromoCode = res.data.active
                 showNotification(existsPromoCode ? "Promo code exists with discount " + res.data.discount + "%" : "Promo code doesn't exist", !existsPromoCode)
             }
         )

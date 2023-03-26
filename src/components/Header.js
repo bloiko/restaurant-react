@@ -19,7 +19,7 @@ import {authService} from "../services/authService";
 export function Header() {
     const { cartItems } = useContext(CartContext)
     const {user} = useContext(UserContext)
-
+    console.log(user)
     const [showBasic, setShowBasic] = useState(false);
 
     const navigate = useNavigate()

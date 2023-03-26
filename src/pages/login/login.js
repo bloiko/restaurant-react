@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {http} from "../../services/apiService";
 import {
     MDBBtn,
@@ -14,11 +14,14 @@ import {
 import {useNavigate} from "react-router-dom";
 import {authService} from "../../services/authService";
 import {useAuth} from "../../hooks/useAuth";
+import {UserContext} from "../../context/userContext";
 
 export const Login = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate()
+    const { getUser } = useContext(UserContext)
+
 
     useAuth("/")
 
@@ -27,6 +30,7 @@ export const Login = () => {
         http.post("/security/signin", {username, password}).then(({data}) => {
             if (data.authToken) {
                 authService.setToken(data.authToken)
+                getUser()
                 navigate("/")
             }
         })
