@@ -37,7 +37,7 @@ export const AdminCategories = () => {
         <MDBTable align='middle'>
             <MDBTableHead>
                 <tr>
-                    <th scope='col'>Order Name</th>
+                    <th scope='col'>Category Name</th>
                     <th scope='col'>Action</th>
                 </tr>
             </MDBTableHead>

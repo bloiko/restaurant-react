@@ -8,6 +8,7 @@ import {Cart} from "./pages/cart/cart";
 import {Admin} from "./pages/admin/admin";
 import {AdminCategories} from "./pages/admin/categories";
 import {AdminUsers} from "./pages/admin/users";
+import {AdminFoodItems} from "./pages/admin/foodItems";
 import {AdminPromoCodes} from "./pages/admin/promocodes";
 import {MyOrders} from "./pages/myOrders/MyOrders";
 import {Error404} from "./pages/404/404";
@@ -29,6 +30,7 @@ export const DefaultRoutes = () => {
                 <Route path="*" element={<Error404 />} />
                 <Route path="/admin/categories" element={<AdminCategories />} />
                 <Route path="/admin/users" element={<AdminUsers />} />
+                <Route path="/admin/food-items" element={<AdminFoodItems />} />
                 <Route path="/admin/promocodes" element={<AdminPromoCodes />} />
             </Routes>
     );

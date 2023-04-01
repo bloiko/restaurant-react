@@ -12,9 +12,9 @@ const getStatusTheme = (status) => {
         case "READY":
             return "info"
         case "DELIVERED":
-            return "Success"
+            return "success"
         case "DONE":
-            return "Success"
+            return "success"
         default :
             return "warning"
     }
@@ -43,7 +43,7 @@ export const OrdersTable = () => {
             <MDBTableBody>
                 {orders.length && orders.map((order) => {
 
-                    return (<tr>
+                    return (<tr style={order.orderStatus != "DONE" ? { backgroundColor: 'lightyellow' } : null}>
                         <td>
                             <div className='d-flex align-items-center'>
                                 <div className='ms-3'>
