@@ -24,7 +24,7 @@ export const OrdersTable = () => {
     const [orders, setOrders] = useState([])
 
     useEffect(() => {
-        http.get("/myorders1").then((res) => setOrders(res.data.myOrders))
+        http.get("/myorders1").then((res) => setOrders(res.data.orders))
     },[])
 
 
