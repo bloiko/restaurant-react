@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {http} from "../../services/apiService";
 import {Layout} from "../../components/Layout";
 import {
@@ -6,7 +6,6 @@ import {
     MDBDropdown, MDBDropdownItem,
     MDBDropdownMenu,
     MDBDropdownToggle,
-    MDBInput,
     MDBTable,
     MDBTableBody,
     MDBTableHead
@@ -14,13 +13,19 @@ import {
 import {useNavigate} from "react-router-dom";
 
 export const AdminFoodItems = () => {
-    const navigate = useNavigate()
-
     const [foodItems, setFoodItems] = useState([])
     const [foodItemsNum, setFoodItemsNum] = useState(0)
 
     const [categories, setCategories] = useState([])
     const [chosenCategory, setChosenCategory] = useState({id: 0, name: "All categories"})
+
+    const navigate = useNavigate()
+
+    const removeFoodItem = (foodItemId) => {
+        http.remove('/admin/food/item' + foodItemId).then(()  =>{
+            setFoodItemsNum(foodItemsNum - 1)
+        })
+    }
 
     useEffect(() => {
         http.post('/menu1', {
@@ -32,14 +37,7 @@ export const AdminFoodItems = () => {
             setCategories(data.categories)
             setFoodItems(data.foodItems)
         })
-        // showNotification(`${chosenCategory.name} have been selected`)
     }, [chosenCategory.name])
-
-    const removeFoodItem = (foodItemId) => {
-        http.remove('/admin/food/item' + foodItemId).then(()  =>{
-            setFoodItemsNum(foodItemsNum - 1)
-        })
-    }
 
     return <Layout>
         <MDBDropdown>

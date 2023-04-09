@@ -20,10 +20,12 @@ export function Registration() {
     const [lastName, setLastName] = useState("")
     const [password, setPassword] = useState("")
     const [username, setUsername] = useState("")
+
     const navigate = useNavigate()
 
     const handleSubmit = (e) => {
         e.preventDefault()
+
         http.post("/security/signup", { email, password, username, firstName, lastName})
             .then(() => navigate("/login"))
     }

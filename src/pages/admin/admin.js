@@ -21,7 +21,7 @@ export const Admin = () => {
 
     const navigate = useNavigate()
 
-    const handleGetReport1 = async () => {
+    const handleGetReport1 = () => {
         axios.get(url, { responseType: 'arraybuffer' })
             .then(response => {
                 setFile(toBase64(response))
@@ -35,10 +35,15 @@ export const Admin = () => {
     return (
         <Layout>
             <MDBBtn onClick={handleGetReport1}>Month order report</MDBBtn>
+
             {file}
+
             <MDBBtn onClick={() => navigate("/admin/categories")}>Categories</MDBBtn>
+
             <MDBBtn onClick={() => navigate("/admin/users")}>Users</MDBBtn>
+
             <MDBBtn onClick={() => navigate("/admin/food-items")}>Food items</MDBBtn>
+
             <MDBBtn onClick={() => navigate("/admin/promocodes")}>Promo codes</MDBBtn>
         </Layout>
     );

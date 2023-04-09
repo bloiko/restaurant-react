@@ -27,11 +27,12 @@ export const DefaultRoutes = () => {
                 <Route path="cart" element={<Cart />} />
                 <Route path="admin" element={<Admin />}/>
                 <Route path="my-orders" element={<MyOrders />} />
-                <Route path="*" element={<Error404 />} />
                 <Route path="/admin/categories" element={<AdminCategories />} />
                 <Route path="/admin/users" element={<AdminUsers />} />
                 <Route path="/admin/food-items" element={<AdminFoodItems />} />
                 <Route path="/admin/promocodes" element={<AdminPromoCodes />} />
+
+                <Route path="*" element={<Error404 />} />
             </Routes>
     );
 };

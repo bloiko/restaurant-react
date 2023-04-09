@@ -33,13 +33,19 @@ export const OrdersTable = () => {
             <MDBTableHead>
                 <tr>
                     <th scope='col'>Order №</th>
+
                     <th scope='col'>Сomponents</th>
+
                     <th scope='col'>Total Price</th>
+
                     <th scope='col'>Discount</th>
+
                     <th scope='col'>Status</th>
+
                     <th scope='col'>Date</th>
                 </tr>
             </MDBTableHead>
+
             <MDBTableBody>
                 {orders.length && orders.map((order) => {
 
@@ -57,8 +63,10 @@ export const OrdersTable = () => {
                                 <MDBListGroupItem style={{padding: 5}} className='d-flex justify-content-between align-items-center'>
                                     <div>
                                         <div className='fw-bold'>{name}</div>
+
                                         <div className='text-muted'>quantity: {quantity}</div>
                                     </div>
+
                                     <MDBBadge pill light color='primary'>
                                         {price}$
                                     </MDBBadge>

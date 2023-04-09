@@ -4,12 +4,14 @@ import {authService} from "../services/authService";
 
 export const useGetUser = () => {
     const { getUser, user } = useContext(UserContext)
+
     const token = authService.getToken()
 
     useEffect(() => {
         if(!token || user){
             return
         }
+
         getUser()
     }, [token])
 };

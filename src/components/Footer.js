@@ -40,6 +40,7 @@ export default function Footer() {
                     >
                         <MDBIcon fab icon='google' />
                     </MDBBtn>
+
                     <MDBBtn
                         floating
                         className='m-1'

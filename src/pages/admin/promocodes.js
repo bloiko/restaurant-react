@@ -5,19 +5,13 @@ import {MDBBtn, MDBInput, MDBTable, MDBTableBody, MDBTableHead} from "mdb-react-
 import {useNavigate} from "react-router-dom";
 
 export const AdminPromoCodes = () => {
-    const navigate = useNavigate()
-
     const [promoCodes, setPromoCodes] = useState([])
     const [promoCodesNum, setPromoCodesNum] = useState([])
 
     const [codeToAdd, setCodeToAdd] = useState([])
     const [discountToAdd, setDiscountToAdd] = useState([])
 
-    useEffect(() => {
-        http.get('/promocode/all').then(({data}) => {
-            setPromoCodes(data)
-        })
-    }, [promoCodesNum])
+    const navigate = useNavigate()
 
     const deactivatePromoCode = (categoryId) => {
         http.put(`/promocode/deactivate/${categoryId}`).then(() => {
@@ -40,6 +34,13 @@ export const AdminPromoCodes = () => {
             setPromoCodesNum(promoCodesNum + 1)
         })
     }
+
+    useEffect(() => {
+        http.get('/promocode/all').then(({data}) => {
+            setPromoCodes(data)
+        })
+    }, [promoCodesNum])
+
 
     return <Layout>
         <MDBBtn onClick={() => navigate("/admin")}>{"<"} Go back to Admin page</MDBBtn>

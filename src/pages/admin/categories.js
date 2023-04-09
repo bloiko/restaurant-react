@@ -3,15 +3,25 @@ import {http} from "../../services/apiService";
 import {Layout} from "../../components/Layout";
 import {MDBBtn, MDBInput, MDBTable, MDBTableBody, MDBTableHead} from "mdb-react-ui-kit";
 import {useNavigate} from "react-router-dom";
-import axios from "axios";
 
 export const AdminCategories = () => {
     const navigate = useNavigate()
 
     const [categories, setCategories] = useState([])
     const [categoriesNum, setCategoriesNum] = useState(0)
-
     const [categoryNameToAdd, setCategoryNameToAdd] = useState([])
+
+    const removeCategory = (categoryId) => {
+        http.remove('/admin/category/' + categoryId).then(() => {
+            setCategoriesNum(categoriesNum - 1)
+        })
+    }
+
+    const addCategory = () => {
+        http.post('/admin/category', {name: categoryNameToAdd}).then(() => {
+            setCategoriesNum(categoriesNum + 1)
+        })
+    }
 
     useEffect(() => {
         http.get('/admin/categories').then(({data}) => {
@@ -20,29 +30,19 @@ export const AdminCategories = () => {
         })
     }, [categoriesNum])
 
-    const removeCategory = (categoryId) => {
-        http.remove('/admin/category/' + categoryId).then(()  =>{
-            setCategoriesNum(categoriesNum - 1)
-
-        })
-    }
-
-    const addCategory = (categoryName) => {
-        http.post('/admin/category', {name : categoryNameToAdd}).then(()  =>{
-           setCategoriesNum(categoriesNum + 1)
-        })
-    }
     return <Layout>
-        <MDBBtn onClick={() => navigate("/admin")}>{"<"} Go back to Admin page</MDBBtn>
+        <MDBBtn onClick={() => navigate("/admin")}>{"< Go back to Admin page"}</MDBBtn>
         <MDBTable align='middle'>
             <MDBTableHead>
                 <tr>
                     <th scope='col'>Category Name</th>
+
                     <th scope='col'>Action</th>
                 </tr>
             </MDBTableHead>
+
             <MDBTableBody>
-                {categories.length && categories.map((category) => {
+                {categories.map((category) => {
                     return (<tr>
                         <td>
                             <div className='d-flex align-items-center'>
@@ -55,7 +55,8 @@ export const AdminCategories = () => {
                         <td>
                             <div className='d-flex align-items-center'>
                                 <div className='ms-3'>
-                                    <MDBBtn color='danger' onClick={() => removeCategory(category.id)}>Remove category with all items</MDBBtn>
+                                    <MDBBtn color='danger' onClick={() => removeCategory(category.id)}>Remove category
+                                        with all items</MDBBtn>
                                 </div>
                             </div>
                         </td>

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
     MDBBtn,
     MDBContainer,
@@ -12,60 +12,46 @@ import {
     from 'mdb-react-ui-kit';
 import {http} from "../../services/apiService";
 import {Layout} from "../../components/Layout";
-import {useNavigate} from "react-router-dom";
 import {NotificationContext} from "../../context/notifiactionContext";
+import {UserContext} from "../../context/userContext";
 
 
 export function MyProfile() {
     const {showNotification} = useContext(NotificationContext)
-    const navigate = useNavigate()
+    const {user} = useContext(UserContext)
 
-    const [id, setId] = useState("")
-    const [email, setEmail] = useState("")
-    const [firstName, setFirstName] = useState("")
-    const [lastName, setLastName] = useState("")
-    const [username, setUsername] = useState("")
-    const [address, setAddress] = useState("")
-    const [phoneNumber, setPhoneNumber] = useState("")
+
+    const [id, setId] = useState(user.id || "")
+    const [email, setEmail] = useState(user.email || "")
+    const [firstName, setFirstName] = useState(user.firstName || "")
+    const [lastName, setLastName] = useState(user.lastName || "")
+    const [username, setUsername] = useState(user.username || "")
+    const [address, setAddress] = useState(user.address || "")
+    const [phoneNumber, setPhoneNumber] = useState( user.phoneNumber || "")
 
 
     const [oldPassword, setOldPassword] = useState("")
     const [newPassword, setNewPassword] = useState("")
     const [newPasswordErrors, setNewPasswordErrors] = useState([])
 
-    useEffect(() => {
-        http.get("/user/profile").then(({data}) => {
-            setId(data.id)
-            setFirstName(data.firstName)
-            setLastName(data.lastName)
-            setUsername(data.username)
-            setEmail(data.email)
-            setAddress(data.address)
-            setPhoneNumber(data.phoneNumber)
-            console.log(data)
-        })
-    }, [])
-
-    const handleUpdate = (e) => {
+    const handleUpdate = async (e) => {
         e.preventDefault()
-        console.log(id)
-        http.put("/user/" + id, {email, username, firstName, lastName, address, phoneNumber})
-            .then(() => {
-                showNotification(`User is updated`, false)
-            })
+
+        await http.put(`/user/${id}`, {email, username, firstName, lastName, address, phoneNumber})
+
+        showNotification(`User is updated`, false)
     }
 
     const handleUpdatePassword = (e) => {
         e.preventDefault()
-        console.log(id)
-        http.put("/user/" + id + "/password", {oldPassword, newPassword})
+
+        http.put(`/user/${id}/password`, {oldPassword, newPassword})
             .then(() => {
                 showNotification(`Password is updated`, false)
             })
             .catch((res) => {
-                console.log(res)
                 const errors = res.errors[0].split("|")
-                console.log(errors)
+
                 setNewPasswordErrors(errors)
             })
     }

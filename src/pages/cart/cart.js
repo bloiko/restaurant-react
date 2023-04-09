@@ -10,24 +10,25 @@ import {NotificationContext} from "../../context/notifiactionContext";
 export const Cart = () => {
     const {showNotification} = useContext(NotificationContext)
     const {cartItems, removeFromCart, removeAllFromCart} = useContext(CartContext)
+
     const [promoCode, setPromoCode] = useState("")
-    const [discount, setDiscount] = useState("")
 
     const navigate = useNavigate()
 
-    const handleSendCart = async () => {
-        await http.post("/cart/order1", {foodItems: cartItems, promoCode: promoCode}).then(() => {
+    const handleSendCart = () => {
+        http.post("/cart/order1", {foodItems: cartItems, promoCode: promoCode}).then(() => {
                 navigate("/my-orders");
+
                 removeAllFromCart()
             }
         )
     }
 
-    const checkPromoCode = async () => {
-        await http.get("/promocode/" + promoCode).then((res) => {
-                setDiscount(res.data.discount)
-                const existsPromoCode = res.data.active
-                showNotification(existsPromoCode ? "Promo code exists with discount " + res.data.discount + "%" : "Promo code doesn't exist", !existsPromoCode)
+    const checkPromoCode = () => {
+        http.get(`/promocode/${promoCode}`).then((res) => {
+                const {active, discount} = res.data.active
+
+                showNotification(active ? `Promo code exists with discount  ${discount}%` : "Promo code doesn't exist", !active)
             }
         )
     }
@@ -38,9 +39,10 @@ export const Cart = () => {
 
             <div className="d-flex flex-row align-items-center mb-4">
                 <MDBIcon fas icon="envelope me-3" size='lg'/>
+
                 <MDBInput label='Your Promo Code' id='form2' value={promoCode}
                           onChange={(e) => setPromoCode(e.target.value)}/>
-                <MDBBtn  onClick={checkPromoCode}>Check promo code</MDBBtn>
+                <MDBBtn onClick={checkPromoCode}>Check promo code</MDBBtn>
             </div>
 
             <div className="d-flex flex-row align-items-center mb-4">
