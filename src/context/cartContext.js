@@ -28,7 +28,6 @@ export const CartContextProvider = ({children}) => {
         removeFromCart: (cartItem) => setCartItems((prevState) => {
             return prevState.map((item) => {
                 if(item.id === cartItem.id) {
-                    console.log( "Remove one quantity" + item)
                     return  {...item, quantity: item.quantity - 1}
                 }
                 return item

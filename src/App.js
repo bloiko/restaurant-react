@@ -6,6 +6,7 @@ import {useGetUser} from "./hooks/useGetUser";
 
 function App() {
     useGetUser()
+
    return (<>
            <DefaultRoutes/>
             <Notification/>

@@ -17,16 +17,18 @@ import {useAuth} from "../../hooks/useAuth";
 import {UserContext} from "../../context/userContext";
 
 export const Login = () => {
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
-    const navigate = useNavigate()
     const { getUser } = useContext(UserContext)
 
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+
+    const navigate = useNavigate()
 
     useAuth("/")
 
     const handleSubmit = (e) => {
         e.preventDefault()
+
         http.post("/security/signin", {username, password}).then(({data}) => {
             if (data.authToken) {
                 authService.setToken(data.authToken)
