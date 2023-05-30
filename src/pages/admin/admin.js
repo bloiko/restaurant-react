@@ -37,6 +37,7 @@ export const Admin = () => {
             <MDBBtn onClick={handleGetReport1}>Month order report</MDBBtn>
 
             {file}
+            <MDBBtn>All users report</MDBBtn>
 
             <MDBBtn onClick={() => navigate("/admin/categories")}>Categories</MDBBtn>
 

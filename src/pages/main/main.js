@@ -45,8 +45,6 @@ export const Main = () => {
             setCategories(data.categories)
             setFoodItems(data.foodItems)
             setNumOfPages(data.numOfPages)
-
-            showNotification(`${chosenCategory.name} have been selected`)
         })
     }, [pageNumber])
 

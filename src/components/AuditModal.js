@@ -17,7 +17,7 @@ export const AuditModal = ({ auditDtos, openModal, isModalOpened }) => {
                 <MDBModalDialog size='lg'>
                     <MDBModalContent>
                         <MDBModalHeader>
-                            <MDBModalTitle>User audits</MDBModalTitle>
+                            <MDBModalTitle>Audits</MDBModalTitle>
 
                             <MDBBtn className='btn-close' color='none' onClick={() => openModal(false)}></MDBBtn>
                         </MDBModalHeader>
