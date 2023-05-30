@@ -11,6 +11,7 @@ import {
     MDBTableHead
 } from "mdb-react-ui-kit";
 import {useNavigate} from "react-router-dom";
+import {AuditModal} from "../../components/AuditModal";
 
 export const AdminFoodItems = () => {
     const [foodItems, setFoodItems] = useState([])
@@ -18,6 +19,11 @@ export const AdminFoodItems = () => {
 
     const [categories, setCategories] = useState([])
     const [chosenCategory, setChosenCategory] = useState({id: 0, name: "All categories"})
+
+
+    const [auditDtos, setAuditDtos] = useState([])
+
+    const [isModalOpened, setIsModalOpened] = useState(false);
 
     const navigate = useNavigate()
 
@@ -38,6 +44,15 @@ export const AdminFoodItems = () => {
             setFoodItems(data.foodItems)
         })
     }, [chosenCategory.name])
+
+
+    const handleOpenModal = (userId) => {
+        setIsModalOpened(true)
+
+        http.get('/audit/FOOD_ITEM/' + userId).then((auditResponses) => {
+            setAuditDtos(auditResponses.data)
+        })
+    }
 
     return <Layout>
         <MDBDropdown>
@@ -67,7 +82,7 @@ export const AdminFoodItems = () => {
             </MDBTableHead>
             <MDBTableBody>
                 {foodItems.length && foodItems.map((foodItem) => {
-                    return (<tr>
+                    return (<tr onClick={() => handleOpenModal(foodItem.id)}>
                         <td>
                             <div className='d-flex align-items-center'>
                                 <div className='ms-a'>
@@ -126,5 +141,6 @@ export const AdminFoodItems = () => {
                 {/*</tr>*/}
             </MDBTableBody>
         </MDBTable>
+        <AuditModal isModalOpened={isModalOpened} openModal={setIsModalOpened} auditDtos={auditDtos} />
     </Layout>
 }

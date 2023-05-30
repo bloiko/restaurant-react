@@ -7,9 +7,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/react": "^18.0.28",
-    "airbnb": "^0.0.2",
     "buffer": "^6.0.3",
-    "eslint-config-airbnb": "^19.0.4",
     "js-file-download": "^0.4.12",
     "moment": "^2.29.4",
     "react": "^18.2.0",
@@ -25,10 +23,7 @@
   },
   "devDependencies": {
     "axios": "^1.2.1",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-testing-library": "^5.10.2",
     "mdb-react-ui-kit": "^5.1.0",
-    "prettier": "2.8.7",
     "react-router-dom": "^6.6.1"
   },
   "browserslist": {

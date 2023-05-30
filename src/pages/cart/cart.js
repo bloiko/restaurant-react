@@ -26,7 +26,7 @@ export const Cart = () => {
 
     const checkPromoCode = () => {
         http.get(`/promocode/${promoCode}`).then((res) => {
-                const {active, discount} = res.data.active
+                const {active, discount} = res.data
 
                 showNotification(active ? `Promo code exists with discount  ${discount}%` : "Promo code doesn't exist", !active)
             }
