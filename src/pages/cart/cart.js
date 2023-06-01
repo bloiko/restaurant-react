@@ -46,6 +46,7 @@ export const Cart = () => {
             </div>
 
             <div className="d-flex flex-row align-items-center mb-4">
+                <h4>Total price: {cartItems.map((foodItem) => foodItem.quantity * foodItem.price).reduce((a, b) => a + b, 0)}</h4>
             </div>
 
             <div className="d-flex flex-row align-items-center mb-4">

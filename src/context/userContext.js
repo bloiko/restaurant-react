@@ -5,7 +5,8 @@ const getCurrentUser = () => http.get("/user/profile")
 
 export const UserContext = React.createContext({
     user: null,
-    getUser: (value) => {},
+    getUser: () => {},
+    removeUser: () => {}
 })
 
 export const UserContextProvider = ({children}) => {
@@ -16,6 +17,9 @@ export const UserContextProvider = ({children}) => {
         getUser: async () => {
             const {data} = await getCurrentUser()
             setUser(data)
+        },
+        removeUser: async () => {
+            setUser(null)
         }
     }
 

@@ -14,10 +14,12 @@ import {
 import {FoodItem} from "../../components/FoodItem";
 import {CartContext} from "../../context/cartContext";
 import {NotificationContext} from "../../context/notifiactionContext";
+import {UserContext} from "../../context/userContext";
 
 
 export const Main = () => {
     const {showNotification} = useContext(NotificationContext)
+    const {user} = useContext(UserContext)
     const {addToCart} = useContext(CartContext)
 
     const [categories, setCategories] = useState([])
@@ -70,7 +72,7 @@ export const Main = () => {
             </MDBDropdownMenu>
         </MDBDropdown>
 
-        <MDBListGroup style={{minWidth: '22rem'}} light>
+         <MDBListGroup style={{minWidth: '22rem'}} light>
             {foodItems.map((item) => <FoodItem key={item.id} foodItem={item} onAdd={() => addToCart(item)}/>)}
         </MDBListGroup>
 
