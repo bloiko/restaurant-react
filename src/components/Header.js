@@ -18,7 +18,7 @@ import {authService} from "../services/authService";
 
 export function Header() {
     const { cartItems } = useContext(CartContext)
-    const {user} = useContext(UserContext)
+    const {user, removeUser, getUser} = useContext(UserContext)
     console.log(user)
     const [showBasic, setShowBasic] = useState(false);
 
@@ -26,7 +26,8 @@ export function Header() {
 
     const handleLogOut = () => {
         authService.removeToken()
-        navigate("/")
+        removeUser()
+        getUser()
     }
 
     return (
@@ -49,7 +50,7 @@ export function Header() {
                             <MDBNavbarLink onClick={() => navigate('/menu')}>Menu</MDBNavbarLink>
                         </MDBNavbarItem>
 
-                        {!!cartItems.length && <MDBNavbarItem style={{display: "flex", alignItems: "center"}}
+                        {user && !!cartItems.length && <MDBNavbarItem style={{display: "flex", alignItems: "center"}}
                                                               onClick={() => navigate('/cart')}>
                             Cart
                             <MDBBadge className='ms-2' color='danger'>
@@ -63,15 +64,17 @@ export function Header() {
                             <MDBNavbarLink onClick={() => navigate('/admin')}>Admin</MDBNavbarLink>
                         </MDBNavbarItem> : null }
 
-                       <MDBNavbarItem>
+                        {user ? <MDBNavbarItem>
                             <MDBNavbarLink onClick={() => navigate('/my-orders')}>My Orders</MDBNavbarLink>
                         </MDBNavbarItem>
+                            : null}
                     </MDBNavbarNav>
 
                      <MDBNavbarNav className='mr-auto mb-2 mb-lg-0 justify-content-end'>
-                         <MDBNavbarItem>
+                         {user ?<MDBNavbarItem>
                              <MDBNavbarLink onClick={() => navigate('/my-profile')}>Profile</MDBNavbarLink>
                          </MDBNavbarItem>
+                             :null }
                          {!user ?
                              <> <MDBNavbarItem>
                         <MDBNavbarLink onClick={() => navigate('/login')}>Sign in</MDBNavbarLink>

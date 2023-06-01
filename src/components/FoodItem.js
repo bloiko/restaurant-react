@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {MDBBtn, MDBCol, MDBRow} from "mdb-react-ui-kit";
+import {UserContext} from "../context/userContext";
 
 export const FoodItem = ({foodItem, onRemove, onAdd}) => {
+    const {user} = useContext(UserContext)
     const {image, price, name} = foodItem
 
     return (
@@ -16,7 +18,7 @@ export const FoodItem = ({foodItem, onRemove, onAdd}) => {
                 <div className='text-muted'>{price}$</div>
             </MDBCol>
 
-            <MDBCol lg='2' md='12' className='mb-4'>
+            {user ? <MDBCol lg='2' md='12' className='mb-4'>
                 {onAdd ? <MDBBtn outline color='success' onClick={onAdd}>
                     Add to cart
                 </MDBBtn>: null}
@@ -24,7 +26,7 @@ export const FoodItem = ({foodItem, onRemove, onAdd}) => {
                 {onRemove ? <MDBBtn outline color='warning' onClick={onRemove}>
                     Remove from cart
                 </MDBBtn> : null}
-            </MDBCol>
+            </MDBCol> : null}
         </MDBRow>
     );
 };
